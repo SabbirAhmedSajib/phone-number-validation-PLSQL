@@ -1,0 +1,47 @@
+/* Formatted on 10/28/2021 11:36:19 AM (QP5 v5.287) */
+CREATE OR REPLACE FUNCTION Phone_no_Validation (
+   Phone_no_Validation  IN  VARCHAR2)
+   RETURN VARCHAR2
+IS
+
+BEGIN
+   IF (LENGTH (Phone_no_Validation) = 12)
+   THEN
+      IF (INSTR (Phone_no_Validation, '-') <> 6)
+      THEN
+         RETURN 'Invalid';
+      ELSE
+         IF    (Phone_no_Validation LIKE '017%')
+            OR (Phone_no_Validation LIKE '013%')
+            OR (Phone_no_Validation LIKE '019%')
+            OR (Phone_no_Validation LIKE '015%')
+            OR (Phone_no_Validation LIKE '016%')
+            OR (Phone_no_Validation LIKE '018%')
+         THEN
+            RETURN 'True';
+         ELSE
+            RETURN 'False';
+         END IF;
+      END IF;
+   ELSIF (LENGTH (Phone_no_Validation) = 11)
+   THEN
+      IF REGEXP_LIKE (Phone_no_Validation, '[^0-9]')
+      THEN
+         RETURN 'Wrong number';
+      ELSE
+         IF    (Phone_no_Validation LIKE '017%')
+            OR (Phone_no_Validation LIKE '013%')
+            OR (Phone_no_Validation LIKE '019%')
+            OR (Phone_no_Validation LIKE '015%')
+            OR (Phone_no_Validation LIKE '016%')
+            OR (Phone_no_Validation LIKE '018%')
+         THEN
+            RETURN 'True';
+         ELSE
+            RETURN 'False';
+         END IF;
+      END IF;
+   ELSE
+      RETURN 'Invalid phone number';
+   END IF;
+END;
